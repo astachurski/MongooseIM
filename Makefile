@@ -91,6 +91,8 @@ $(DEVNODES_CD): rebar
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
 	cp -R `dirname $(shell ./readlink.sh $(shell which erl))`/../lib/tools-* dev/mongooseim_$@/lib/	
 
+cd_release: $(DEVNODES_CD)
+
 deps_dev:
 	mkdir -p dev
 
