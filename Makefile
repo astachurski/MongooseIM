@@ -4,6 +4,7 @@ EJABBERD_DIR = apps/ejabberd
 EJD_INCLUDE = $(EJABBERD_DIR)/include
 EJD_PRIV = $(EJABBERD_DIR)/priv
 DEVNODES = node1 node2
+DEVNODES_CD = DEVNODES
 
 all: deps compile
 
@@ -84,6 +85,11 @@ $(DEVNODES): rebar deps compile deps_dev
 	@echo "building $@"
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
 	cp -R `dirname $(shell ./readlink.sh $(shell which erl))`/../lib/tools-* dev/mongooseim_$@/lib/
+	
+$(DEVNODES_CD): rebar 
+	@echo "building $@"
+	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
+	cp -R `dirname $(shell ./readlink.sh $(shell which erl))`/../lib/tools-* dev/mongooseim_$@/lib/	
 
 deps_dev:
 	mkdir -p dev
