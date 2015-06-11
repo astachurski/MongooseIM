@@ -44,9 +44,10 @@ qct:
 # called by external integration tool. prerequisites: targets deps,compile  
 # have been called already.
 cd_ct:
-	mkdir -p /tmp/ct_log
-	ct_run -pa apps/*/ebin -pa deps/*/ebin -dir apps/*/test\
-        -I apps/*/include -logdir /tmp/ct_log -suite $(SUITE) -noshell        
+        mkdir -p apps/ejabberd/ct_log
+        ct_run -pa apps/*/ebin -pa deps/*/ebin -dir apps/*/test\
+        -I apps/*/include -logdir apps/ejabberd/ct_log  -noshell
+
 
 test: test_deps
 	cd test/ejabberd_tests; make test
