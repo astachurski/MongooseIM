@@ -40,7 +40,7 @@ qct:
 	mkdir -p /tmp/ct_log
 	ct_run -pa apps/*/ebin -pa deps/*/ebin -dir apps/*/test\
         -I apps/*/include -logdir /tmp/ct_log -suite $(SUITE) -noshell
-        
+
 # called by external integration tool. prerequisites: targets deps,compile  
 # have been called already.
 cd_ct:
@@ -48,7 +48,6 @@ cd_ct:
         ct_run -pa apps/*/ebin -pa deps/*/ebin -dir apps/*/test\
         -I apps/*/include -logdir apps/ejabberd/ct_surefire_logs  -noshell\
         -ct_hooks cth_surefire -logdir apps/ejabberd/ct_surefire_logs
-
 
 test: test_deps
 	cd test/ejabberd_tests; make test
@@ -94,7 +93,7 @@ $(DEVNODES): rebar deps compile deps_dev
 	@echo "building $@"
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
 	cp -R `dirname $(shell ./readlink.sh $(shell which erl))`/../lib/tools-* dev/mongooseim_$@/lib/
-	
+
 $(DEVNODES_CD): rebar 
 	@echo "building $@"
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
