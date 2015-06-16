@@ -5,6 +5,7 @@ EJD_INCLUDE = $(EJABBERD_DIR)/include
 EJD_PRIV = $(EJABBERD_DIR)/priv
 DEVNODES = node1 node2
 DEVNODES_CD = DEVNODES
+REL_DEST = ./paczka
 
 all: deps compile
 
@@ -28,6 +29,21 @@ reload: quick_compile
 reload_dev: quick_compile
 	@E=`ls ./dev/mongooseim_node1/lib/ | grep ejabberd-2 | sort -r | head -n 1` ;\
 	rsync -uW ./apps/ejabberd/ebin/*beam ./dev/mongooseim_node1/lib/$$E/ebin/ ;\
+
+copyrel:
+	mkdir $REL_DEST
+	rsync -uWr --exclude="*.erl" --exclude="*.spec" --exclude=".git" --exclude="logs/" --exclude="test/" ./apps $(REL_DEST)
+	rsync -uWr --exclude="*.erl" --exclude="*.spec" --exclude=".git" --exclude="test/" ./deps $(REL_DEST)
+	rsync -uWr --exclude="log/" ./rel $(REL_DEST)
+	rsync -uWr rebar $(REL_DEST)
+	rsync -uWr rebar.config $(REL_DEST)
+	rsync -uWr rebar.config.script $(REL_DEST)
+	rsync -uWr rebar.tests.config $(REL_DEST)
+	rsync -uWr Makefile $(REL_DEST)
+	rsync -uWr ./ebin $(REL_DEST)
+	rsync -uWr --exclude="*.erl" ./src $(REL_DEST)
+	tar -cf paczka.tar $(REL_DEST)
+
 
 ct: deps quick_compile
 	@if [ "$(SUITE)" ]; then ./rebar -q ct suite=$(SUITE) skip_deps=true;\
@@ -101,7 +117,7 @@ $(DEVNODES_CD): rebar
 
 cd_release: $(DEVNODES_CD)
 
-deps_dev:
+pdeps_dev:
 	mkdir -p dev
 
 devclean:
