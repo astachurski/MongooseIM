@@ -31,7 +31,7 @@ reload_dev: quick_compile
 	rsync -uW ./apps/ejabberd/ebin/*beam ./dev/mongooseim_node1/lib/$$E/ebin/ ;\
 
 copyrel:
-	mkdir $REL_DEST
+	mkdir $(REL_DEST)
 	rsync -uWr --exclude="*.erl" --exclude="*.spec" --exclude=".git" --exclude="logs/" --exclude="test/" ./apps $(REL_DEST)
 	rsync -uWr --exclude="*.erl" --exclude="*.spec" --exclude=".git" --exclude="test/" ./deps $(REL_DEST)
 	rsync -uWr --exclude="log/" ./rel $(REL_DEST)
@@ -42,7 +42,8 @@ copyrel:
 	rsync -uWr Makefile $(REL_DEST)
 	rsync -uWr ./ebin $(REL_DEST)
 	rsync -uWr --exclude="*.erl" ./src $(REL_DEST)
-	tar -cf paczka.tar $(REL_DEST)
+	cd $(REL_DEST)
+	tar -cf ../paczka.tar *
 
 
 ct: deps quick_compile
