@@ -42,8 +42,7 @@ copyrel:
 	rsync -uWr Makefile $(REL_DEST)
 	rsync -uWr ./ebin $(REL_DEST)
 	rsync -uWr --exclude="*.erl" ./src $(REL_DEST)
-	cd $(REL_DEST)
-	tar -cf ../paczka.tar *
+	tar -cf paczka.tar $(REL_DEST)/*
 
 
 ct: deps quick_compile
