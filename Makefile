@@ -4,7 +4,7 @@ EJABBERD_DIR = apps/ejabberd
 EJD_INCLUDE = $(EJABBERD_DIR)/include
 EJD_PRIV = $(EJABBERD_DIR)/priv
 DEVNODES = node1 node2
-DEVNODES_CD = DEVNODES
+DEVNODES_CD = node1 node2
 REL_DEST = ./paczka
 
 all: deps compile
