@@ -115,11 +115,12 @@ $(DEVNODES): rebar deps compile deps_dev
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
 	cp -R `dirname $(shell ./readlink.sh $(shell which erl))`/../lib/tools-* dev/mongooseim_$@/lib/
 
+erl_tools = $(shell kerl active | grep /usr)/lib/tools-*
+
 $(DEVNODES_CD): rebar 
 	@echo "building $@"
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
-	SPATH=$(kerl active | grep /usr)/../lib/tools-*
-	cp -R $SPATH dev/mongooseim_$@/lib/
+	cp -R $(erl_tools) dev/mongooseim_$@/lib/
 #cp -R `dirname $(shell ./readlink.sh $(shell which erl))`/../lib/tools-* dev/mongooseim_$@/lib/	
 
 cd_release: $(DEVNODES_CD)
