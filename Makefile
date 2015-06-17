@@ -122,7 +122,8 @@ cd_release: $(DEVNODESCD)
 $(DEVNODESCD): rebar 
 	@echo "building $@"
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
-	cp -R $(erl_tools) dev/mongooseim_$@/lib/
+	cp -R /usr/OTP_174/lib/tools-* dev/mongooseim_$@/lib/
+#cp -R $(erl_tools) dev/mongooseim_$@/lib/    - ucina sciezke do toolsow w go-cd serwerze. zaraz cos mnie trafi.
 
 deps_dev:
 	mkdir -p dev
