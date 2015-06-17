@@ -40,6 +40,7 @@ cd_copyrel:
 	rsync -uWr rebar.config.script $(REL_DEST)
 	rsync -uWr rebar.tests.config $(REL_DEST)
 	rsync -uWr Makefile $(REL_DEST)
+	rsync -uWr readlink.sh $(REL_DEST)
 	rsync -uWr ./ebin $(REL_DEST)
 	rsync -uWr --exclude="*.erl" ./src $(REL_DEST)
 	rsync -uWr ./tools/configure $(REL_DEST)
@@ -124,7 +125,7 @@ $(DEVNODES_CD): rebar
 
 cd_release: $(DEVNODES_CD)
 
-pdeps_dev:
+deps_dev:
 	mkdir -p dev
 
 devclean:
