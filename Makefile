@@ -4,7 +4,7 @@ EJABBERD_DIR = apps/ejabberd
 EJD_INCLUDE = $(EJABBERD_DIR)/include
 EJD_PRIV = $(EJABBERD_DIR)/priv
 DEVNODES = node1 node2
-DEVNODESCD = node1 node2
+DEVNODESCD = node1cd node2cd
 REL_DEST = ./paczka
 
 all: deps compile
@@ -117,12 +117,12 @@ $(DEVNODES): rebar deps compile deps_dev
 
 erl_tools = $(shell kerl active | grep /usr)/lib/tools-*
 
+cd_release: $(DEVNODESCD)
+
 $(DEVNODESCD): rebar 
 	@echo "building $@"
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
 	cp -R $(erl_tools) dev/mongooseim_$@/lib/
-
-cd_release: $(DEVNODESCD)
 
 deps_dev:
 	mkdir -p dev
