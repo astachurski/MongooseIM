@@ -47,10 +47,7 @@ cd_copyrel:
 	tar -cf paczka.tar $(REL_DEST)/*
 
 cd_copyrel_unpack:
-	# tar -xvf paczka.tar
 	mv ./* ../
-	# rm -rf ./paczka
-	# rm paczka.tar
 
 
 ct: deps quick_compile
@@ -68,7 +65,7 @@ qct:
 # called by external integration tool. prerequisites: targets deps,compile  
 # have been called already.
 cd_ct:
-	mkdir -p apps/ejabberd/ct_surefire_logs
+	mkdir -v apps/ejabberd/ct_surefire_logs
 	ct_run -pa apps/*/ebin -pa deps/*/ebin -dir apps/*/test\
         -I apps/*/include -logdir apps/ejabberd/ct_surefire_logs  -noshell\
         -ct_hooks cth_surefire -logdir apps/ejabberd/ct_surefire_logs
