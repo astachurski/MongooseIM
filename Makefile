@@ -46,10 +46,10 @@ cd_copyrel:
 	tar -cf paczka.tar $(REL_DEST)/*
 
 cd_copyrel_unpack:
-	tar -xvf paczka.tar
-	mv ./paczka/* ./
-	rm -rf ./paczka
-	rm paczka.tar
+	# tar -xvf paczka.tar
+	mv ./* ../
+	# rm -rf ./paczka
+	# rm paczka.tar
 
 
 ct: deps quick_compile
