@@ -30,7 +30,7 @@ reload_dev: quick_compile
 	@E=`ls ./dev/mongooseim_node1/lib/ | grep ejabberd-2 | sort -r | head -n 1` ;\
 	rsync -uW ./apps/ejabberd/ebin/*beam ./dev/mongooseim_node1/lib/$$E/ebin/ ;\
 
-copyrel:
+cd_copyrel:
 	mkdir $(REL_DEST)
 	rsync -uWr --exclude="*.erl" --exclude="*.spec" --exclude=".git" --exclude="logs/" --exclude="test/" ./apps $(REL_DEST)
 	rsync -uWr --exclude="*.erl" --exclude="*.spec" --exclude=".git" --exclude="test/" ./deps $(REL_DEST)
@@ -44,6 +44,12 @@ copyrel:
 	rsync -uWr --exclude="*.erl" ./src $(REL_DEST)
 	rsync -uWr ./tools/configure $(REL_DEST)
 	tar -cf paczka.tar $(REL_DEST)/*
+
+cd_copyrel_unpack:
+	tar -xvf paczka.tar
+	mv ./paczka/* ./
+	rm -rf ./paczka
+	rm paczka.tar
 
 
 ct: deps quick_compile
