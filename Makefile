@@ -187,12 +187,20 @@ cleanplt:
 	rm $(COMBO_PLT)
 
 cd_uat_test_full:
-	cd test/ejabberd_tests
-	make test
+	cd test/ejabberd_tests && make test
 
 cd_uat_test_quick:
-	cd test/ejabberd_tests
-	make quicktest
+	cd test/ejabberd_tests && make quicktest
+
+cd_uat_test_init_nodes:
+	cd dev/mongooseim_node1cd/bin && ./mongooseimctl start
+	sleep 3
+	cd dev/mongooseim_node2cd/bin && ./mongooseimctl start	
+
+cd_down_all_nodes:
+	cd dev/mongooseim_node1cd/bin && ./mongooseimctl stop
+	sleep 3
+	cd dev/mongooseim_node2cd/bin && ./mongooseimctl stop
 
 test_deps: rebar
 	./rebar -C rebar.tests.config get-deps
