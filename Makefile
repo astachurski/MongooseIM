@@ -65,9 +65,9 @@ qct:
 # called by external integration tool. prerequisites: targets deps,compile  
 # have been called already.
 cd_ct:
-	mkdir -v apps/ejabberd/ctlogs
+	mkdir -v apps/ejabberd/logs
 	ct_run -pa apps/*/ebin -pa deps/*/ebin -dir apps/*/test\
-        -I apps/*/include -logdir apps/ejabberd/ctlogs  -noshell\
+        -I apps/*/include -logdir apps/ejabberd/logs  -noshell\
 #       -ct_hooks cth_surefire -logdir apps/ejabberd/ct_surefire_logs
 
 test: test_deps
