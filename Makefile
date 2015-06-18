@@ -120,6 +120,9 @@ erl_tools = $(shell kerl active | grep /usr)/lib/tools-*
 #Example topology, 2 nodes. It ONLY generates testable releases to "dev" folder. 
 cd_release: $(DEVNODESCD)
 
+cd_release_smoketest:
+	@echo "this configuration ($@) seems to work!"
+
 $(DEVNODESCD): rebar 
 	@echo "building $@"
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
@@ -130,6 +133,9 @@ $(DEVNODESCD): rebar
 cd_release_base: rebar
 	(cd rel && ../rebar generate -f target_dir=../dev/mynode overlay_vars=./reltool_vars/mynode_vars.config)
 	cp -R /usr/OTP_174/lib/tools-* dev/mynode/lib/	
+
+cd_release_base_smoketest:
+	@echo "this configuration ($@) seems to work!"
 
 deps_dev:
 	mkdir -p dev
