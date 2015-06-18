@@ -67,8 +67,8 @@ qct:
 cd_ct:
 	mkdir -v apps/ejabberd/ctlogs
 	ct_run -pa apps/*/ebin -pa deps/*/ebin -dir apps/*/test\
-        -I apps/*/include -logdir apps/ejabberd/ctlogs  -noshell\
-#       -ct_hooks cth_surefire -logdir apps/ejabberd/ct_surefire_logs
+        -I apps/*/include -logdir apps/ejabberd/ctlogs  -noshell
+# -ct_hooks cth_surefire -logdir apps/ejabberd/ct_surefire_logs
 
 test: test_deps
 	cd test/ejabberd_tests; make test
