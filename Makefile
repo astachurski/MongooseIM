@@ -186,6 +186,13 @@ dialyzer: compile
 cleanplt:
 	rm $(COMBO_PLT)
 
+cd_uat_test_full:
+	cd test/ejabberd_tests
+	make test
+
+cd_uat_test_quick:
+	cd test/ejabberd_tests
+	make quicktest
 
 test_deps: rebar
 	./rebar -C rebar.tests.config get-deps
