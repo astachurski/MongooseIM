@@ -117,6 +117,7 @@ $(DEVNODES): rebar deps compile deps_dev
 
 erl_tools = $(shell kerl active | grep /usr)/lib/tools-*
 
+#Example topology, 2 nodes. It ONLY generates testable releases to "dev" folder. 
 cd_release: $(DEVNODESCD)
 
 $(DEVNODESCD): rebar 
@@ -124,6 +125,11 @@ $(DEVNODESCD): rebar
 	(cd rel && ../rebar generate -f target_dir=../dev/mongooseim_$@ overlay_vars=./reltool_vars/$@_vars.config)
 	cp -R /usr/OTP_174/lib/tools-* dev/mongooseim_$@/lib/
 #cp -R $(erl_tools) dev/mongooseim_$@/lib/    - ucina sciezke do toolsow w go-cd serwerze. zaraz cos mnie trafi.
+
+#example, minimalistic 1-node deployment to dev.
+cd_release_base: rebar
+	(cd rel && ../rebar generate -f target_dir=../dev/mynode overlay_vars=./reltool_vars/mynode_vars.config)
+	cp -R /usr/OTP_174/lib/tools-* dev/mynode/lib/	
 
 deps_dev:
 	mkdir -p dev
