@@ -201,9 +201,12 @@ cd_uat_test_full:
 cd_uat_test_quick:
 	cd test/ejabberd_tests && make quicktest
 
+cd_uat_test_cover_quick:
+	cd test/ejabberd_tests && make cover_quicktest
+
 # CD END
 
-# CD -------- start test deployments for varios UAT/functional test targets. After starting - invote ALL/some functonal tests 
+# CD ----runtime control---- start test deployments for varios UAT/functional test targets. After starting - invote ALL/some functonal tests 
 # -------- against configurations.
 
 cd_uat_test_two_nodes_start:
