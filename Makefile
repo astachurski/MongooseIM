@@ -117,11 +117,14 @@ $(DEVNODES): rebar deps compile deps_dev
 
 erl_tools = $(shell kerl active | grep /usr)/lib/tools-*
 
-#Example topology, 2 nodes. It ONLY generates testable releases to "dev" folder. 
-cd_release: $(DEVNODESCD)
+# CD ---------------- UAT test release , 2 nodes. It ONLY generates testable releases to "dev" folder. 
+cd_two_nodes_release: $(DEVNODESCD)
 
+# CD run very basic test to check if release has been generated properly
 cd_release_smoketest:
 	@echo "this configuration ($@) seems to work!"
+
+# CD END
 
 $(DEVNODESCD): rebar 
 	@echo "building $@"
@@ -129,13 +132,16 @@ $(DEVNODESCD): rebar
 	cp -R /usr/OTP_174/lib/tools-* dev/mongooseim_$@/lib/
 #cp -R $(erl_tools) dev/mongooseim_$@/lib/    - ucina sciezke do toolsow w go-cd serwerze. zaraz cos mnie trafi.
 
-#example, minimalistic 1-node deployment to dev.
+# CD ---------------  UAT test release, minimalistic 1-node deployment to dev.
 cd_release_base: rebar
 	(cd rel && ../rebar generate -f target_dir=../dev/mynode overlay_vars=./reltool_vars/mynode_vars.config)
 	cp -R /usr/OTP_174/lib/tools-* dev/mynode/lib/	
 
+# CD run very basic test to check if release has been generated properly
 cd_release_base_smoketest:
 	@echo "this configuration ($@) seems to work!"
+
+# CD END ----------
 
 deps_dev:
 	mkdir -p dev
@@ -186,21 +192,31 @@ dialyzer: compile
 cleanplt:
 	rm $(COMBO_PLT)
 
+# CD-------- invocations of UAT/functional tests suites. ---------
+# -------- split targets into smaller parts -> map them to suites and call independently for different configurations ----
+
 cd_uat_test_full:
 	cd test/ejabberd_tests && make test
 
 cd_uat_test_quick:
 	cd test/ejabberd_tests && make quicktest
 
-cd_uat_test_init_nodes:
+# CD END
+
+# CD -------- start test deployments for varios UAT/functional test targets. After starting - invote ALL/some functonal tests 
+# -------- against configurations.
+
+cd_uat_test_two_nodes_start:
 	cd dev/mongooseim_node1cd/bin && ./mongooseimctl start
 	sleep 3
 	cd dev/mongooseim_node2cd/bin && ./mongooseimctl start	
 
-cd_down_all_nodes:
+cd_uat_test_two_nodes_stop:
 	cd dev/mongooseim_node1cd/bin && ./mongooseimctl stop
 	sleep 3
 	cd dev/mongooseim_node2cd/bin && ./mongooseimctl stop
+
+# CD END
 
 test_deps: rebar
 	./rebar -C rebar.tests.config get-deps
