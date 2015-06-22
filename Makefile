@@ -216,6 +216,14 @@ cd_uat_test_two_nodes_stop:
 	sleep 3
 	cd dev/mongooseim_node2cd/bin && ./mongooseimctl stop
 
+cd_uat_test_base_start:
+	cd dev/mynode/bin && ./mongooseimctl start
+	sleep 3
+
+cd_uat_test_base_stop:
+	cd dev/mynode/bin && ./mongooseimctl start
+	sleep 3
+
 # CD END
 
 test_deps: rebar
