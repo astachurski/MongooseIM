@@ -224,7 +224,7 @@ cd_uat_test_base_start:
 	sleep 3
 
 cd_uat_test_base_stop:
-	cd dev/mynode/bin && ./mongooseimctl start
+	cd dev/mynode/bin && ./mongooseimctl stop
 	sleep 3
 
 # CD END
